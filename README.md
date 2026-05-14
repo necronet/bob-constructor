@@ -1,4 +1,8 @@
-# Bob el contructor
+<p align="center">
+  <img src="docs/bob.jpeg" alt="Bob Constructor" width="240" />
+</p>
+
+# Bob Constructor (website builder)
 
 Contendra una app open source para construccion de sitios web graficos. Probablemente con Svelte y Backend agnostic
 
