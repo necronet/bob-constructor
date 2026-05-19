@@ -1,10 +1,36 @@
 <script lang="ts">
+	import type { DndEvent } from 'svelte-dnd-action';
+	import type { ComponentOptionItem } from '$lib/components/types';
+	import { dndzone } from 'svelte-dnd-action';
 	import Button from '$lib/components/base/Button.svelte';
 	import Image from '$lib/components/base/Image.svelte';
 	import TextBlock from '$lib/components/base/TextBlock.svelte';
 	import PagesComponent from '$lib/components/PagesComponent.svelte';
 	import Section from '$lib/components/Section.svelte';
 	import SettingsComponent from '$lib/components/SettingsComponent.svelte';
+	import RenderView from '$lib/components/editor/RenderView.svelte';
+
+	const defaultComponents: ComponentOptionItem[] = [
+		{
+			id: 'component-option-text-block',
+			type: 'textBlock',
+			label: 'Text block',
+			component: TextBlock
+		},
+		{ id: 'component-option-image', type: 'image', label: 'Image', component: Image },
+		{ id: 'component-option-button', type: 'button', label: 'Button', component: Button }
+	];
+
+	let paletteItems = $state<ComponentOptionItem[]>(defaultComponents);
+
+	function handlePaletteConsider(event: CustomEvent<DndEvent<ComponentOptionItem>>) {
+		paletteItems = event.detail.items;
+	}
+
+	function handlePaletteFinalize() {
+		// Making the pallete items to be render the defaultComponents
+		paletteItems = defaultComponents;
+	}
 </script>
 
 <svelte:head>
@@ -26,9 +52,22 @@
 				</Section>
 
 				<Section name="Components">
-					<TextBlock />
-					<Image />
-					<Button />
+					<div
+						class="space-y-3"
+						use:dndzone={{
+							items: paletteItems,
+							type: 'component-option',
+							flipDurationMs: 150,
+							dropFromOthersDisabled: true
+						}}
+						onconsider={handlePaletteConsider}
+						onfinalize={handlePaletteFinalize}
+					>
+						{#each paletteItems as item (item.id)}
+							{@const ComponentOption = item.component}
+							<ComponentOption />
+						{/each}
+					</div>
 				</Section>
 			</div>
 		</section>
@@ -41,15 +80,7 @@
 				</div>
 			</div>
 
-			<div
-				class="min-h-[calc(100vh-8.5rem)] rounded-md border border-neutral-200 bg-white p-8 shadow-sm"
-			>
-				<div
-					class="flex min-h-[360px] items-center justify-center rounded-md border border-dashed border-neutral-300 bg-neutral-50 text-sm font-medium text-neutral-500"
-				>
-					Page result will render here
-				</div>
-			</div>
+			<RenderView />
 		</section>
 	</div>
 </main>
