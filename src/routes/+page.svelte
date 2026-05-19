@@ -1,5 +1,10 @@
 <script lang="ts">
-	const components = ['Header', 'Text block', 'Image', 'Button'];
+	import Button from '$lib/components/base/Button.svelte';
+	import Image from '$lib/components/base/Image.svelte';
+	import TextBlock from '$lib/components/base/TextBlock.svelte';
+	import PagesComponent from '$lib/components/PagesComponent.svelte';
+	import Section from '$lib/components/Section.svelte';
+	import SettingsComponent from '$lib/components/SettingsComponent.svelte';
 </script>
 
 <svelte:head>
@@ -14,16 +19,17 @@
 				<h1 class="text-2xl font-semibold">Components</h1>
 			</div>
 
-			<div class="space-y-3">
-				{#each components as component}
-					<button
-						class="flex w-full items-center justify-between rounded-md border border-neutral-200 bg-neutral-50 px-4 py-3 text-left text-sm font-medium transition hover:border-neutral-300 hover:bg-white"
-						type="button"
-					>
-						<span>{component}</span>
-						<span class="text-neutral-400">+</span>
-					</button>
-				{/each}
+			<div class="space-y-6">
+				<Section name="Global">
+					<PagesComponent />
+					<SettingsComponent />
+				</Section>
+
+				<Section name="Components">
+					<TextBlock />
+					<Image />
+					<Button />
+				</Section>
 			</div>
 		</section>
 
@@ -35,8 +41,12 @@
 				</div>
 			</div>
 
-			<div class="min-h-[calc(100vh-8.5rem)] rounded-md border border-neutral-200 bg-white p-8 shadow-sm">
-				<div class="flex min-h-[360px] items-center justify-center rounded-md border border-dashed border-neutral-300 bg-neutral-50 text-sm font-medium text-neutral-500">
+			<div
+				class="min-h-[calc(100vh-8.5rem)] rounded-md border border-neutral-200 bg-white p-8 shadow-sm"
+			>
+				<div
+					class="flex min-h-[360px] items-center justify-center rounded-md border border-dashed border-neutral-300 bg-neutral-50 text-sm font-medium text-neutral-500"
+				>
 					Page result will render here
 				</div>
 			</div>

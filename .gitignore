@@ -1,5 +1,7 @@
 node_modules
 
+.codex
+
 # Output
 .output
 .vercel
