@@ -51,9 +51,11 @@
 	}
 </script>
 
-<div class="min-h-[calc(100vh-8.5rem)] rounded-md border border-neutral-200 bg-white p-8 shadow-sm">
+<div
+	class="min-h-[calc(100vh-8.5rem)] rounded-md border border-builder-primary/20 bg-white p-8 shadow-sm"
+>
 	<div
-		class="relative min-h-90 rounded-md border border-dashed border-neutral-300 bg-neutral-50 p-4"
+		class="relative min-h-90 rounded-md border border-dashed border-builder-primary/30 bg-builder-primary/5 p-4"
 	>
 		<div
 			class="min-h-82 space-y-3"
@@ -68,7 +70,7 @@
 		>
 			{#each renderedItems as item (item.id)}
 				{@const editorRenderer = renderInEditor(item.type)}
-				<div class="rounded-md border border-neutral-200 bg-white p-4 shadow-sm">
+				<div class="rounded-md border border-builder-primary/20 bg-white p-4 shadow-sm">
 					{@render editorRenderer()}
 				</div>
 			{/each}
@@ -76,7 +78,7 @@
 
 		{#if renderedItems.length === 0}
 			<p
-				class="pointer-events-none absolute inset-0 flex items-center justify-center text-sm font-medium text-neutral-500"
+				class="pointer-events-none absolute inset-0 flex items-center justify-center text-sm font-medium text-builder-primary"
 			>
 				Drop components here
 			</p>

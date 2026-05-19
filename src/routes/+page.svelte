@@ -9,6 +9,7 @@
 	import Section from '$lib/components/Section.svelte';
 	import SettingsComponent from '$lib/components/SettingsComponent.svelte';
 	import RenderView from '$lib/components/editor/RenderView.svelte';
+	import AppHeader from '$lib/components/AppHeader.svelte';
 
 	const defaultComponents: ComponentOptionItem[] = [
 		{
@@ -37,11 +38,13 @@
 	<title>Bob Constructor</title>
 </svelte:head>
 
-<main class="min-h-screen bg-neutral-100 text-neutral-950">
+<AppHeader title="Bob - Website Builder" onSave={() => console.log('Saving')} />
+
+<main class="min-h-screen bg-builder-primary/5 text-builder-black">
 	<div class="grid min-h-screen grid-cols-1 lg:grid-cols-[320px_minmax(0,1fr)]">
-		<section class="border-b border-neutral-200 bg-white p-5 lg:border-r lg:border-b-0">
+		<section class="border-b border-builder-primary/20 bg-white p-5 lg:border-r lg:border-b-0">
 			<div class="mb-5">
-				<p class="text-sm font-medium text-neutral-500">Builder</p>
+				<p class="text-sm font-medium text-builder-primary">Builder</p>
 				<h1 class="text-2xl font-semibold">Components</h1>
 			</div>
 
@@ -75,7 +78,7 @@
 		<section class="p-5">
 			<div class="mb-5 flex items-center justify-between gap-4">
 				<div>
-					<p class="text-sm font-medium text-neutral-500">Preview</p>
+					<p class="text-sm font-medium text-builder-primary">Preview</p>
 					<h2 class="text-2xl font-semibold">Rendered page</h2>
 				</div>
 			</div>

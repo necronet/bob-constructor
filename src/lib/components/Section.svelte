@@ -12,13 +12,13 @@
 
 <section>
 	<button
-		class="mb-3 flex w-full items-center justify-between text-left text-xs font-semibold tracking-wide text-neutral-500 uppercase transition hover:text-neutral-800"
+		class="mb-3 flex w-full items-center justify-between text-left text-xs font-semibold tracking-wide text-builder-primary uppercase transition hover:text-builder-secondary"
 		type="button"
 		aria-expanded={!isCollapsed}
 		onclick={() => (isCollapsed = !isCollapsed)}
 	>
 		<span>{name}</span>
-		<span class="text-sm leading-none text-neutral-400">{isCollapsed ? '+' : '-'}</span>
+		<span class="text-sm leading-none text-builder-secondary">{isCollapsed ? '+' : '-'}</span>
 	</button>
 
 	{#if !isCollapsed}

@@ -9,7 +9,7 @@
 <ComponentOption>Button</ComponentOption>
 
 {#snippet renderInEditor()}
-	<button class="rounded-md bg-neutral-950 px-4 py-2 text-sm font-medium text-white" type="button">
+	<button class="rounded-md bg-builder-primary px-4 py-2 text-sm font-medium text-builder-white" type="button">
 		Button
 	</button>
 {/snippet}
