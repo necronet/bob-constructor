@@ -4,6 +4,8 @@
 
 # Bob Constructor (website builder)
 
+Seriously this project still WIP whenever is ready to be used I'll finish the readme
+
 Contendra una app open source para construccion de sitios web graficos. Probablemente con Svelte y Backend agnostic
 
 *How it will work ?*
