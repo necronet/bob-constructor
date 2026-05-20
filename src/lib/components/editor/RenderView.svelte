@@ -5,7 +5,11 @@
 	import { dndzone } from 'svelte-dnd-action';
 	import { SvelteMap } from 'svelte/reactivity';
 
-	let renderedItems = $state<ComponentOptionItem[]>([]);
+	type Props = {
+		renderedItems: ComponentOptionItem[];
+	};
+
+	let { renderedItems = $bindable([]) }: Props = $props();
 	let nextInstanceId = 1;
 	let pendingInstanceIds = new SvelteMap<string, string>();
 

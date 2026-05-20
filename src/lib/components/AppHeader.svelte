@@ -1,5 +1,41 @@
 <script lang="ts">
-	let { title, onSave } = $props();
+	import type { ComponentOptionItem, ComponentType } from '$lib/components/types';
+
+	type Props = {
+		title: string;
+		renderedItems: ComponentOptionItem[];
+	};
+
+	type SavedComponent = {
+		component: string;
+		value: ComponentType;
+	};
+
+	type SavedPage = {
+		components: SavedComponent[];
+	};
+
+	const componentNames: Record<ComponentType, string> = {
+		textBlock: 'TextBlock',
+		image: 'Image',
+		button: 'Button'
+	};
+
+	let { title, renderedItems }: Props = $props();
+
+	function createSavePayload(): SavedPage {
+		return {
+			components: renderedItems.map((item) => ({
+				component: componentNames[item.type],
+				value: item.type
+			}))
+		};
+	}
+
+	function onSave() {
+		const payload = createSavePayload();
+		console.log(JSON.stringify(payload, null, 2));
+	}
 </script>
 
 <header>

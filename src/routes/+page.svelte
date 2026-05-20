@@ -23,6 +23,7 @@
 	];
 
 	let paletteItems = $state<ComponentOptionItem[]>(defaultComponents);
+	let renderedItems = $state<ComponentOptionItem[]>([]);
 
 	function handlePaletteConsider(event: CustomEvent<DndEvent<ComponentOptionItem>>) {
 		paletteItems = event.detail.items;
@@ -38,7 +39,7 @@
 	<title>Bob Constructor</title>
 </svelte:head>
 
-<AppHeader title="Bob - Website Builder" onSave={() => console.log('Saving')} />
+<AppHeader title="Bob - Website Builder" {renderedItems} />
 
 <main class="min-h-screen bg-builder-primary/5 text-builder-black">
 	<div class="grid min-h-screen grid-cols-1 lg:grid-cols-[320px_minmax(0,1fr)]">
@@ -83,7 +84,7 @@
 				</div>
 			</div>
 
-			<RenderView />
+			<RenderView bind:renderedItems />
 		</section>
 	</div>
 </main>
