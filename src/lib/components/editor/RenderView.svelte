@@ -7,9 +7,10 @@
 
 	type Props = {
 		renderedItems: ComponentOptionItem[];
+		selectedItem: ComponentOptionItem | null;
 	};
 
-	let { renderedItems = $bindable([]) }: Props = $props();
+	let { renderedItems = $bindable([]), selectedItem = $bindable(null) }: Props = $props();
 	let nextInstanceId = 1;
 	let pendingInstanceIds = new SvelteMap<string, string>();
 
@@ -47,11 +48,16 @@
 
 	function handleFinalize(event: CustomEvent<DndEvent<ComponentOptionItem>>) {
 		renderedItems = normalizeItems(event.detail.items);
+		selectedItem = renderedItems.find((item) => item.id === selectedItem?.id) ?? null;
 		pendingInstanceIds = new SvelteMap();
 	}
 
 	function renderInEditor(type: ComponentType) {
 		return editorRenderers[type];
+	}
+
+	function selectItem(item: ComponentOptionItem) {
+		selectedItem = item;
 	}
 </script>
 
@@ -74,9 +80,18 @@
 		>
 			{#each renderedItems as item (item.id)}
 				{@const editorRenderer = renderInEditor(item.type)}
-				<div class="rounded-md border border-builder-primary/20 bg-white p-4 shadow-sm">
+				<button
+					class={[
+						'w-full cursor-pointer rounded-md border bg-white p-4 text-left shadow-sm transition active:cursor-grabbing',
+						selectedItem?.id === item.id
+							? 'border-builder-primary ring-2 ring-builder-primary/20'
+							: 'border-builder-primary/20 hover:border-builder-primary/40'
+					]}
+					type="button"
+					onclick={() => selectItem(item)}
+				>
 					{@render editorRenderer()}
-				</div>
+				</button>
 			{/each}
 		</div>
 

@@ -9,6 +9,7 @@
 	import Section from '$lib/components/Section.svelte';
 	import SettingsComponent from '$lib/components/SettingsComponent.svelte';
 	import RenderView from '$lib/components/editor/RenderView.svelte';
+	import PropertyView from '$lib/components/editor/PropertyView.svelte';
 	import AppHeader from '$lib/components/AppHeader.svelte';
 	import AppSectionTitle from '$lib/components/AppSectionTitle.svelte';
 
@@ -25,6 +26,7 @@
 
 	let paletteItems = $state<ComponentOptionItem[]>(defaultComponents);
 	let renderedItems = $state<ComponentOptionItem[]>([]);
+	let selectedItem = $state<ComponentOptionItem | null>(null);
 
 	function handlePaletteConsider(event: CustomEvent<DndEvent<ComponentOptionItem>>) {
 		paletteItems = event.detail.items;
@@ -43,7 +45,7 @@
 <AppHeader title="Bob - Website Builder" {renderedItems} />
 
 <main class="min-h-screen bg-builder-primary/5 text-builder-black">
-	<div class="grid min-h-screen grid-cols-1 lg:grid-cols-[320px_minmax(0,1fr)]">
+	<div class="grid min-h-screen grid-cols-1 lg:grid-cols-[320px_minmax(0,1fr)_320px]">
 		<section class="border-b border-builder-primary/20 bg-white p-5 lg:border-r lg:border-b-0">
 			<div class="mb-5">
 				<AppSectionTitle title="Builder" subtitle="Components" />
@@ -81,7 +83,15 @@
 				<AppSectionTitle title="Preview" subtitle="Rendered page" />
 			</div>
 
-			<RenderView bind:renderedItems />
+			<RenderView bind:renderedItems bind:selectedItem />
+		</section>
+
+		<section class="border-t border-builder-primary/20 bg-white p-5 lg:border-t-0 lg:border-l">
+			<div class="mb-5">
+				<AppSectionTitle title="Editor" subtitle="Properties" />
+			</div>
+
+			<PropertyView {selectedItem} />
 		</section>
 	</div>
 </main>
