@@ -1,14 +1,10 @@
 <script module lang="ts">
 	import type { Snippet } from 'svelte';
 	import type { ComponentType } from '$lib/components/types';
-	import { renderInEditor as renderButtonInEditor } from '$lib/components/base/Button.svelte';
-	import { renderInEditor as renderImageInEditor } from '$lib/components/base/Image.svelte';
-	import { renderInEditor as renderTextBlockInEditor } from '$lib/components/base/TextBlock.svelte';
+	import { blocks } from '$lib/builder/blocks';
 
-	/* Convinient function to transform a name to a component */
-	export const editorRenderers: Record<ComponentType, Snippet> = {
-		textBlock: renderTextBlockInEditor,
-		image: renderImageInEditor,
-		button: renderButtonInEditor
-	};
+	/* Convenient function to transform a component type to an editor renderer. */
+	export const editorRenderers = Object.fromEntries(
+		Object.entries(blocks).map(([type, definition]) => [type, definition.renderInEditor])
+	) as Record<ComponentType, Snippet>;
 </script>
