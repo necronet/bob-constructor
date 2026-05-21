@@ -28,16 +28,37 @@
 	}
 
 	function normalizeItems(items: ComponentOptionItem[]) {
-		return items.map((item) => {
+		return items.map((item): ComponentOptionItem => {
 			if (!item.id.startsWith('component-option-')) {
 				return {
 					...item
 				};
 			}
 
+			if (item.type === 'textBlock') {
+				return {
+					...item,
+					id: getInstanceId(item.id),
+					attributes: {
+						value: item.attributes.value
+					}
+				};
+			}
+
+			if (item.type === 'image') {
+				return {
+					...item,
+					id: getInstanceId(item.id),
+					attributes: {
+						src: item.attributes.src
+					}
+				};
+			}
+
 			return {
 				...item,
-				id: getInstanceId(item.id)
+				id: getInstanceId(item.id),
+				attributes: {}
 			};
 		});
 	}
@@ -90,7 +111,7 @@
 					type="button"
 					onclick={() => selectItem(item)}
 				>
-					{@render editorRenderer()}
+					{@render editorRenderer(item)}
 				</button>
 			{/each}
 		</div>

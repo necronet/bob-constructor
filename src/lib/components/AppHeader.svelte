@@ -1,13 +1,14 @@
 <script lang="ts">
 	import type { ComponentOptionItem } from '$lib/components/types';
 	import { serializeAsJson, toPageObject } from '$lib/builder/serializers';
+	import type { Snippet } from 'svelte';
 
 	type Props = {
-		title: string;
+		children: Snippet;
 		renderedItems: ComponentOptionItem[];
 	};
 
-	let { title, renderedItems }: Props = $props();
+	let { children, renderedItems }: Props = $props();
 
 	function onSave() {
 		const pageObject = toPageObject(renderedItems);
@@ -23,7 +24,7 @@
 	>
 		<div class="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between">
 			<a href="https://flowbite.com" class="flex items-center">
-				<span class="self-center text-xl font-semibold whitespace-nowrap">{title}</span>
+				{@render children()}
 			</a>
 			<div class="flex items-center lg:order-2">
 				<button

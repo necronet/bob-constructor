@@ -13,15 +13,35 @@
 	import AppHeader from '$lib/components/AppHeader.svelte';
 	import AppSectionTitle from '$lib/components/AppSectionTitle.svelte';
 
+	const defaultTextBlockValue =
+		'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
+
 	const defaultComponents: ComponentOptionItem[] = [
 		{
 			id: 'component-option-text-block',
 			type: 'textBlock',
 			label: 'Text block',
-			component: TextBlock
+			component: TextBlock,
+			attributes: {
+				value: defaultTextBlockValue
+			}
 		},
-		{ id: 'component-option-image', type: 'image', label: 'Image', component: Image },
-		{ id: 'component-option-button', type: 'button', label: 'Button', component: Button }
+		{
+			id: 'component-option-image',
+			type: 'image',
+			label: 'Image',
+			component: Image,
+			attributes: {
+				src: ''
+			}
+		},
+		{
+			id: 'component-option-button',
+			type: 'button',
+			label: 'Button',
+			component: Button,
+			attributes: {}
+		}
 	];
 
 	let paletteItems = $state<ComponentOptionItem[]>(defaultComponents);
@@ -42,7 +62,9 @@
 	<title>Bob Constructor</title>
 </svelte:head>
 
-<AppHeader title="Bob - Website Builder" {renderedItems} />
+<AppHeader {renderedItems}>
+	<span class="self-center text-xl font-semibold whitespace-nowrap">Bob - Website builder</span>
+</AppHeader>
 
 <main class="min-h-screen bg-builder-primary/5 text-builder-black">
 	<div class="grid min-h-screen grid-cols-1 lg:grid-cols-[320px_minmax(0,1fr)_320px]">
@@ -91,7 +113,7 @@
 				<AppSectionTitle title="Editor" subtitle="Properties" />
 			</div>
 
-			<PropertyView {selectedItem} />
+			<PropertyView bind:selectedItem />
 		</section>
 	</div>
 </main>

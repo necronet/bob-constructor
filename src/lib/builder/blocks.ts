@@ -14,7 +14,7 @@ export type BuilderBlock = {
 
 export type BlockDefinition = {
 	component: string;
-	renderInEditor: Snippet;
+	renderInEditor: Snippet<[ComponentOptionItem]>;
 	toObject: (item: ComponentOptionItem) => BuilderBlock;
 };
 
@@ -27,7 +27,7 @@ export const blocks: Record<ComponentType, BlockDefinition> = {
 			type: item.type,
 			component: 'TextBlock',
 			props: {
-				text: 'Lorem ipsum dolor sit amet'
+				value: item.type === 'textBlock' ? item.attributes.value : ''
 			}
 		})
 	},
@@ -40,8 +40,7 @@ export const blocks: Record<ComponentType, BlockDefinition> = {
 			type: item.type,
 			component: 'Image',
 			props: {
-				src: null,
-				alt: ''
+				src: item.type === 'image' ? item.attributes.src : ''
 			}
 		})
 	},
@@ -53,10 +52,7 @@ export const blocks: Record<ComponentType, BlockDefinition> = {
 			id: item.id,
 			type: item.type,
 			component: 'Button',
-			props: {
-				label: 'Button',
-				href: '#'
-			}
+			props: {}
 		})
 	}
 };
